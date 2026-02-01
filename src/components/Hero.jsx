@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const Hero = () => {
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 500], [0, 200]);
+    // Zoom effect: Scales from 1 to 1.15 as user scrolls down 700px
+    const scale = useTransform(scrollY, [0, 700], [1, 1.15]);
 
     return (
         <div style={{ position: 'relative', height: '100dvh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
@@ -18,7 +20,9 @@ const Hero = () => {
                     backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(/images/bg-hero.webp)', /* Darker overlay 0.6 */
                     backgroundSize: 'cover',
                     backgroundPosition: '50% 20%',
-                    y: y
+                    y: y,
+                    scale: scale, // Apply smooth zoom
+                    willChange: 'transform' // Optimize for GPU
                 }}
             />
             {/* Mobile adjustment for background */}
