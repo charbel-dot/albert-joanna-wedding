@@ -1,16 +1,30 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaMusic, FaPause } from 'react-icons/fa';
 
 const MusicPlayer = ({ isPlaying, togglePlay }) => {
     const audioRef = useRef(null);
+    const [hasStarted, setHasStarted] = useState(false);
 
     useEffect(() => {
         if (isPlaying) {
-            audioRef.current.play().catch(e => console.log("Autoplay prevented", e));
+            // Seek to 5s only on the very first start if it hasn't started yet
+            if (!hasStarted && audioRef.current) {
+                audioRef.current.currentTime = 5;
+                setHasStarted(true);
+            }
+
+            const playPromise = audioRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.log("Autoplay prevented", e);
+                    // If autoplay fails, we might want to reflect that in UI, 
+                    // but usually it's better to just let user click play.
+                });
+            }
         } else {
-            audioRef.current.pause();
+            audioRef.current?.pause();
         }
-    }, [isPlaying]);
+    }, [isPlaying, hasStarted]);
 
     return (
         <div style={{
@@ -19,7 +33,7 @@ const MusicPlayer = ({ isPlaying, togglePlay }) => {
             right: '30px',
             zIndex: 1000, /* Increased z-index */
         }}>
-            <audio ref={audioRef} loop src="/audio/bg-music.mp3" />
+            <audio ref={audioRef} loop src="/audio/bg-music.mp3" preload="auto" />
             <button
                 onClick={togglePlay}
                 style={{

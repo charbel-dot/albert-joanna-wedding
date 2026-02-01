@@ -1,4 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay, A11y } from 'swiper/modules';
+
+// Import only necessary Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const images = [
     '/images/A&J (2).webp',
@@ -12,74 +18,103 @@ const images = [
     '/images/A&J (113).webp'
 ];
 
-// Duplicate images to create simple seamless loop
-const allImages = [...images, ...images, ...images];
-
 const Gallery = () => {
+    // Memoized configuration for best performance
+    const swiperConfig = useMemo(() => ({
+        modules: [Pagination, Autoplay, A11y],
+        spaceBetween: 24, // Tighter spacing for larger images
+        loop: true,
+        speed: 800,
+        grabCursor: true,
+        // Removed centeredSlides for desktop to allow strictly 3 items if preferred, 
+        // but centered looks better. Keeping it but ensuring layout fits 3.
+        centeredSlides: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        pagination: {
+            clickable: true,
+            dynamicBullets: true
+        },
+        breakpoints: {
+            // Mobile: 1 big slide
+            0: {
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+                centeredSlides: true,
+            },
+            // Tablet: 2 slides
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                centeredSlides: false, // Standard carousel feel on tablet
+            },
+            // Desktop: STRICTLY 3 slides as requested
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30, // Gap between the 3 images
+                centeredSlides: false, // Standard layout showing 3 full items
+            }
+        },
+        // Performance attributes
+        observer: true,
+        observeParents: true,
+    }), []);
 
     return (
         <section className="section-padding" style={{ backgroundColor: 'var(--color-sage-light)', overflow: 'hidden' }}>
-            <div className="text-center" style={{ marginBottom: '2rem' }}>
+            <div className="text-center" style={{ marginBottom: '3rem' }}>
                 <p className="script-font" style={{ color: 'var(--color-sage)' }}>Moments</p>
                 <h2>Our Happiness</h2>
             </div>
 
-            <div className="carousel-container" style={{ width: '100%', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                <style dangerouslySetInnerHTML={{
-                    __html: `
-                    @keyframes scroll {
-                        0% { transform: translateX(0); }
-                        100% { transform: translateX(-33.33%); } /* Move 1/3 since we tripled content */
-                    }
-                    .animate-scroll {
-                        animation: scroll 40s linear infinite; /* Slow consistent scroll */
-                        display: inline-flex;
-                        gap: 1.5rem;
-                        padding-left: 1.5rem;
-                    }
-                    /* Pause on hover interaction */
-                    .carousel-container:hover .animate-scroll,
-                    .carousel-container:active .animate-scroll {
-                        animation-play-state: paused;
-                    }
-                `}} />
-
-                <div
-                    className="animate-scroll"
+            <div className="gallery-carousel-wrapper" style={{ paddingBottom: '1rem', width: '100%', maxWidth: '1400px', margin: '0 auto' }}>
+                <Swiper
+                    {...swiperConfig}
                     style={{
-                        // Layout inline
+                        paddingBottom: '3.5rem',
+                        '--swiper-theme-color': 'var(--color-sage)',
+                        '--swiper-pagination-bullet-inactive-color': '#adb5bd',
+                        '--swiper-pagination-bullet-inactive-opacity': '0.5'
                     }}
                 >
-                    {allImages.map((img, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                width: '300px', // Fixed width for predictable layout
-                                height: '450px',
-                                flexShrink: 0,
-                                borderRadius: '12px',
-                                overflow: 'hidden',
-                                position: 'relative',
-                                boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
-                            }}
-                        >
-                            <img
-                                src={img}
-                                alt={`Gallery ${index}`}
-                                loading="lazy"
+                    {images.map((img, index) => (
+                        <SwiperSlide key={index} style={{ height: 'auto', display: 'flex', justifyContent: 'center' }}>
+                            <div
                                 style={{
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    // Completely removed box-shadow for maximum fps
+                                    // Use a subtle border instead if separation is needed
+                                    border: '1px solid rgba(0,0,0,0.05)',
+                                    aspectRatio: '3/4',
+                                    position: 'relative',
                                     width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    pointerEvents: 'none'
+                                    // Max width removed to let it fill the slide (making them bigger)
+                                    // Only constrained by the container/slidesPerView
+                                    transform: 'translateZ(0)',
+                                    willChange: 'transform'
                                 }}
-                            />
-                        </div>
+                            >
+                                <img
+                                    src={img}
+                                    alt={`Gallery image ${index + 1}`}
+                                    loading="lazy"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        display: 'block',
+                                        backfaceVisibility: 'hidden'
+                                    }}
+                                />
+                            </div>
+                        </SwiperSlide>
                     ))}
-                </div>
+                </Swiper>
             </div>
-
-            {/* Optional manual scroll hint replaced by infinite instruction or hidden */}
         </section>
     );
 };
