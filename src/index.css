@@ -7,11 +7,11 @@
   --color-gold: #B59E6D;
   --color-gold-light: #E5DCC5;
   --color-white: #FFFFFF;
-  
+
   --font-heading: 'Cinzel', serif;
   --font-script: 'Great Vibes', cursive;
   --font-body: 'Montserrat', sans-serif;
-  
+
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
@@ -22,7 +22,9 @@
   --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -37,7 +39,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 500;
   color: var(--color-text-primary);
@@ -95,19 +102,39 @@ button {
 }
 
 /* Utilities */
-.text-center { text-align: center; }
-.flex-center { display: flex; justify-content: center; align-items: center; }
-.section-padding { padding: var(--spacing-lg) var(--spacing-sm); }
-.gold-text { color: var(--color-gold); }
-.script-font { font-family: var(--font-script); font-size: 1.5em; color: var(--color-gold); }
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-padding {
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+.gold-text {
+  color: var(--color-gold);
+}
+
+.script-font {
+  font-family: var(--font-script);
+  font-size: 1.5em;
+  color: var(--color-gold);
+}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-bg);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-sage);
   border-radius: 4px;

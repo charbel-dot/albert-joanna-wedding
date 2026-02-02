@@ -9,7 +9,7 @@ const MusicPlayer = ({ isPlaying, togglePlay }) => {
         if (isPlaying) {
             // Seek to 5s only on the very first start if it hasn't started yet
             if (!hasStarted && audioRef.current) {
-                audioRef.current.currentTime = 5;
+                audioRef.current.currentTime = 8;
                 setHasStarted(true);
             }
 

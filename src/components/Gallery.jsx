@@ -22,7 +22,7 @@ const Gallery = () => {
     // Memoized configuration for best performance
     const swiperConfig = useMemo(() => ({
         modules: [Pagination, Autoplay, A11y],
-        spaceBetween: 24, // Tighter spacing for larger images
+        spaceBetween: 10, // Reduced spacing
         loop: true,
         speed: 800,
         grabCursor: true,
@@ -42,19 +42,19 @@ const Gallery = () => {
             // Mobile: 1 big slide
             0: {
                 slidesPerView: 1.2,
-                spaceBetween: 16,
+                spaceBetween: 8,
                 centeredSlides: true,
             },
             // Tablet: 2 slides
             640: {
                 slidesPerView: 2,
-                spaceBetween: 20,
+                spaceBetween: 12,
                 centeredSlides: false, // Standard carousel feel on tablet
             },
             // Desktop: STRICTLY 3 slides as requested
             1024: {
                 slidesPerView: 3,
-                spaceBetween: 30, // Gap between the 3 images
+                spaceBetween: 15, // Reduced gap between the 3 images
                 centeredSlides: false, // Standard layout showing 3 full items
             }
         },
@@ -84,30 +84,33 @@ const Gallery = () => {
                         <SwiperSlide key={index} style={{ height: 'auto', display: 'flex', justifyContent: 'center' }}>
                             <div
                                 style={{
-                                    borderRadius: '12px',
-                                    overflow: 'hidden',
-                                    // Completely removed box-shadow for maximum fps
-                                    // Use a subtle border instead if separation is needed
-                                    border: '1px solid rgba(0,0,0,0.05)',
+                                    backgroundColor: '#ffffff',
+                                    padding: '12px 12px 45px 12px', // Polaroid-style frame
+                                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                                    width: '100%',
                                     aspectRatio: '3/4',
                                     position: 'relative',
-                                    width: '100%',
-                                    // Max width removed to let it fill the slide (making them bigger)
-                                    // Only constrained by the container/slidesPerView
-                                    transform: 'translateZ(0)',
-                                    willChange: 'transform'
+
+                                    // Performance attributes
+                                    transform: 'translate3d(0,0,0)',
+                                    willChange: 'transform',
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden'
                                 }}
                             >
                                 <img
                                     src={img}
                                     alt={`Gallery image ${index + 1}`}
-                                    loading="lazy"
+                                    loading="eager"
+                                    decoding="async"
                                     style={{
                                         width: '100%',
                                         height: '100%',
                                         objectFit: 'cover',
                                         display: 'block',
-                                        backfaceVisibility: 'hidden'
+                                        filter: 'grayscale(0%)', // Ensure images are crisp
+                                        backfaceVisibility: 'hidden',
+                                        WebkitBackfaceVisibility: 'hidden'
                                     }}
                                 />
                             </div>
@@ -115,7 +118,7 @@ const Gallery = () => {
                     ))}
                 </Swiper>
             </div>
-        </section>
+        </section >
     );
 };
 
