@@ -85,7 +85,7 @@ const Gallery = () => {
                             <div
                                 style={{
                                     backgroundColor: '#ffffff',
-                                    padding: '12px 12px 45px 12px', // Polaroid-style frame
+                                    padding: '12px 12px 75px 12px', // Polaroid-style frame
                                     boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                                     width: '100%',
                                     aspectRatio: '3/4',
