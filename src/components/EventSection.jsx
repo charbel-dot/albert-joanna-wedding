@@ -15,12 +15,13 @@ const MapModal = ({ isOpen, onClose, location }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            transition={{ duration: 0.2 }} // Faster overlay
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 map-modal-overlay"
             onClick={onClose}
             style={{
                 position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
                 backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 9999, // Darker backdrop
-                backdropFilter: 'blur(8px)', // Enhanced glass effect
+                backdropFilter: 'blur(8px)', // Enhanced glass effect (disabled on mobile)
                 display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
             }}
         >
@@ -28,6 +29,8 @@ const MapModal = ({ isOpen, onClose, location }) => {
                 initial={{ scale: 0.95, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ duration: 0.2 }} // Faster open
+                className="map-modal-content"
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     width: '100%',
@@ -42,7 +45,7 @@ const MapModal = ({ isOpen, onClose, location }) => {
             >
                 {/* Header */}
                 <div style={{
-                    padding: '1.5rem',
+                    padding: '1.5rem 4rem', // Added horizontal padding to prevent X button overlap
                     textAlign: 'center',
                     borderBottom: '1px solid var(--color-gold-light)',
                     backgroundColor: '#FAFAFA',
@@ -160,12 +163,14 @@ const EventCard = ({ title, time, location, address, icon, delay, onMapClick }) 
             onClick={onMapClick}
             style={{
                 padding: '12px 30px',
-                fontSize: '0.9rem',
+                fontSize: '0.75rem', // Smaller font size
+                letterSpacing: '1px', // Added letter spacing for uppercase readability
+                fontWeight: 600, // Make it bold to remain legible
                 border: '1px solid var(--color-sage)',
                 color: 'var(--color-sage)'
             }}
         >
-            <FaMapMarkerAlt style={{ marginRight: '8px' }} /> View Map
+            <FaMapMarkerAlt style={{ marginRight: '8px' }} /> HOW TO GET THERE
         </button>
     </motion.div>
 );
@@ -239,6 +244,21 @@ const EventSection = () => {
                 __html: `
                 @media (max-width: 768px) {
                     .event-container { flexDirection: column !important; }
+                    /* Modal optimizations for mobile */
+                    .map-modal-overlay { 
+                        backdrop-filter: none !important; /* Remove blur to fix lag */
+                    }
+                    .map-modal-content {
+                        width: 95% !important; /* Smaller width (was implicit 100% - padding) */
+                        max-height: 85vh !important; /* Constrain height */
+                        overflow-y: auto !important; /* Allow scroll if needed */
+                        border-radius: 12px !important; /* Slightly smaller radius */
+                        margin: 0 auto !important;
+                    }
+                    /* Adjust map height inside modal if needed */
+                    .map-modal-content > div:nth-child(2) {
+                         height: 350px !important; /* Smaller map height on mobile */
+                    }
                 }
             `}} />
         </section>
