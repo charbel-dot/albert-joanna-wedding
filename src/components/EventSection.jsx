@@ -108,7 +108,7 @@ const MapModal = ({ isOpen, onClose, location }) => {
                         href={directLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary"
+                        className="btn-primary open-maps-btn"
                         style={{
                             display: 'inline-flex',
                             alignItems: 'center',
@@ -258,6 +258,11 @@ const EventSection = () => {
                     /* Adjust map height inside modal if needed */
                     .map-modal-content > div:nth-child(2) {
                          height: 350px !important; /* Smaller map height on mobile */
+                    }
+                    /* Reduce font size for Open in Maps button */
+                    .open-maps-btn {
+                        font-size: 0.9rem !important; /* Smaller font on mobile */
+                        padding: 12px 30px !important; /* Adjust padding if needed */
                     }
                 }
             `}} />

@@ -30,28 +30,49 @@ function App() {
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        // Start preloading images immediately when the app mounts (in the background)
-        const preloadHeaders = async () => {
-            const promises = galleryImages.map((src) => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = resolve;
-                    img.onerror = resolve; // Continue even if one fails
+        const handleLoad = async () => {
+            try {
+                // 1. Minimum wait time to prevent flashing (2.5s)
+                const minTimePromise = new Promise(resolve => setTimeout(resolve, 2500));
+
+                // 2. Wait for all critical images
+                const imagePromises = galleryImages.map((src) => {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.src = src;
+                        img.onload = resolve;
+                        img.onerror = resolve; // Continue even if error
+                    });
                 });
-            });
-            await Promise.all(promises);
+                const imagesLoadedPromise = Promise.all(imagePromises);
+
+                // 3. Wait for the window to be fully loaded
+                const windowLoadPromise = new Promise((resolve) => {
+                    if (document.readyState === 'complete') {
+                        resolve();
+                    } else {
+                        window.addEventListener('load', resolve, { once: true });
+                    }
+                });
+
+                // 4. Wait for fonts to be ready
+                const fontLoadPromise = document.fonts.ready;
+
+                // Wait for ALL conditions to be met
+                await Promise.all([
+                    minTimePromise,
+                    imagesLoadedPromise,
+                    windowLoadPromise,
+                    fontLoadPromise
+                ]);
+            } catch (error) {
+                console.error("Loading error:", error);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
-        // Fire off preloading but don't block the main loader timer
-        preloadHeaders();
-
-        // Simulate loading time or wait for resources (e.g., 2.5 seconds)
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2500);
-
-        return () => clearTimeout(timer);
+        handleLoad();
     }, []);
 
     const handleEnter = (withMusic) => {
