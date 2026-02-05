@@ -204,7 +204,7 @@ const EventSection = () => {
                     style={{ marginBottom: '4rem' }}
                 >
                     <span className="script-font" style={{ color: 'var(--color-sage)' }}>The Big Day</span>
-                    <h2>Wedding Events</h2>
+                    <h2>Wedding Event</h2>
                 </motion.div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
