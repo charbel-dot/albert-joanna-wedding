@@ -25,14 +25,16 @@ const Hero = () => {
                     willChange: 'transform' // Optimize for GPU
                 }}
             />
-            {/* Mobile adjustment: Disable zoom/parallax and fix background */}
+            {/* Mobile adjustment: Disable zoom/parallax and fix background visibility */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @media (max-width: 768px) {
                     .hero-bg { 
-                        background-position: 65% 20% !important;
-                        transform: none !important; /* Disable zoom and parallax scale/y */
-                        background-attachment: fixed !important; /* Keep background fixed */
+                        background-position: center center !important;
+                        transform: none !important; 
+                        background-attachment: scroll !important; /* Fixed is broken on iOS */
+                        height: 100% !important;
+                        width: 100% !important;
                     }
                 }
             `}} />

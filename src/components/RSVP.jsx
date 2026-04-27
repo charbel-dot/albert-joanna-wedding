@@ -38,11 +38,21 @@ const RSVP = () => {
                     {/* Decorative Elements */}
                     <div style={{
                         position: 'absolute',
-                        top: '-10px',
-                        right: '-10px',
-                        width: '100px',
-                        height: '100px',
-                        border: '2px solid var(--color-gold-light)',
+                        top: '-30px',
+                        right: '-30px',
+                        width: '120px',
+                        height: '120px',
+                        border: '1px solid var(--color-gold-light)',
+                        borderRadius: '50%',
+                        opacity: 0.4
+                    }}></div>
+                    <div style={{
+                        position: 'absolute',
+                        top: '-45px',
+                        right: '-45px',
+                        width: '120px',
+                        height: '120px',
+                        border: '1px solid var(--color-gold)',
                         borderRadius: '50%',
                         opacity: 0.2
                     }}></div>
