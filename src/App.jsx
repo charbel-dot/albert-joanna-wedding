@@ -59,22 +59,12 @@ function App() {
                 // 4. Wait for fonts to be ready
                 const fontLoadPromise = document.fonts.ready;
 
-                // 5. Preload background music
-                const audioPreloadPromise = new Promise((resolve) => {
-                    const audio = new Audio();
-                    audio.src = '/audio/bg-music.mp3';
-                    audio.preload = 'auto';
-                    audio.oncanplaythrough = resolve;
-                    audio.onerror = resolve; // Continue even if audio fails
-                });
-
                 // Wait for ALL conditions to be met
                 await Promise.all([
                     minTimePromise,
                     imagesLoadedPromise,
                     windowLoadPromise,
-                    fontLoadPromise,
-                    audioPreloadPromise
+                    fontLoadPromise
                 ]);
             } catch (error) {
                 console.error("Loading error:", error);
