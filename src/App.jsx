@@ -9,6 +9,7 @@ import Gallery from './components/Gallery'; // Eager load Gallery to ensure comp
 // Optimizing performance: Lazy load below-the-fold content, except Gallery which we want ready
 // This ensures the initial "Hero" load is as fast as possible
 const EventSection = lazy(() => import('./components/EventSection'));
+const RSVP = lazy(() => import('./components/RSVP'));
 const Gifts = lazy(() => import('./components/Gifts'));
 const Footer = lazy(() => import('./components/Footer'));
 
@@ -111,6 +112,7 @@ function App() {
                         <>
                             <EventSection />
                             <Gallery />
+                            <RSVP />
                             <Gifts />
                             <Footer />
                         </>
