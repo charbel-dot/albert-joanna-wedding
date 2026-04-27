@@ -33,8 +33,8 @@ function App() {
     useEffect(() => {
         const handleLoad = async () => {
             try {
-                // 1. Minimum wait time to prevent flashing (2.5s)
-                const minTimePromise = new Promise(resolve => setTimeout(resolve, 2500));
+                // 1. Minimum wait time to prevent flashing (1.8s for a snappier feel)
+                const minTimePromise = new Promise(resolve => setTimeout(resolve, 1800));
 
                 // 2. Wait for all critical images
                 const imagePromises = galleryImages.map((src) => {

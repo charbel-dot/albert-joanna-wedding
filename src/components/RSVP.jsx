@@ -2,6 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const RSVP = () => {
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+    const handleSubmit = () => {
+        setIsSubmitting(true);
+        // Form will proceed with default action
+    };
+
     return (
         <section className="section-padding" id="rsvp" style={{ backgroundColor: 'var(--color-bg)' }}>
             <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
@@ -21,55 +28,52 @@ const RSVP = () => {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                     style={{
                         backgroundColor: 'var(--color-white)',
-                        padding: '3rem',
+                        padding: '3.5rem 3rem',
                         borderRadius: '24px',
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+                        boxShadow: '0 30px 60px -12px rgba(0,0,0,0.05), 0 18px 36px -18px rgba(0,0,0,0.05)',
                         border: '1px solid var(--color-gold-light)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}
                 >
-                    {/* Decorative Elements */}
+                    {/* Minimalist Top Border Accent */}
                     <div style={{
                         position: 'absolute',
-                        top: '-30px',
-                        right: '-30px',
-                        width: '120px',
-                        height: '120px',
-                        border: '1px solid var(--color-gold-light)',
-                        borderRadius: '50%',
-                        opacity: 0.4
-                    }}></div>
-                    <div style={{
-                        position: 'absolute',
-                        top: '-45px',
-                        right: '-45px',
-                        width: '120px',
-                        height: '120px',
-                        border: '1px solid var(--color-gold)',
-                        borderRadius: '50%',
-                        opacity: 0.2
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '3px',
+                        background: 'linear-gradient(90deg, rgba(181, 158, 109, 0) 0%, rgba(181, 158, 109, 0.8) 50%, rgba(181, 158, 109, 0) 100%)'
                     }}></div>
 
-                    <form action="https://formsubmit.co/your-email@example.com" method="POST">
+                    <form 
+                        action="https://formsubmit.co/your-email@example.com" 
+                        method="POST"
+                        onSubmit={handleSubmit}
+                    >
                         {/* FormSubmit Configuration */}
                         <input type="hidden" name="_subject" value="New Wedding RSVP!" />
                         <input type="hidden" name="_template" value="table" />
-                        <input type="hidden" name="_captcha" value="false" />
+                        <input type="hidden" name="_captcha" value="true" />
                         
-                        <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+                        {/* Honeypot field for bot protection */}
+                        <input type="text" name="_honey" style={{ display: 'none' }} />
+                        
+                        <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
                                 <label style={labelStyle}>Full Name</label>
                                 <input 
                                     type="text" 
                                     name="name" 
                                     required 
+                                    minLength="2"
+                                    maxLength="50"
                                     placeholder="Enter your name"
                                     className="custom-input"
                                     style={inputStyle}
@@ -88,7 +92,7 @@ const RSVP = () => {
                             </div>
                         </div>
 
-                        <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+                        <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
                                 <label style={labelStyle}>Attendance</label>
                                 <select name="attending" required className="custom-input" style={inputStyle}>
@@ -102,7 +106,7 @@ const RSVP = () => {
                                 <input 
                                     type="number" 
                                     name="guests" 
-                                    min="1" 
+                                    min="0" 
                                     max="10" 
                                     placeholder="1"
                                     className="custom-input"
@@ -111,11 +115,12 @@ const RSVP = () => {
                             </div>
                         </div>
 
-                        <div className="form-group" style={{ marginBottom: '2.5rem' }}>
+                        <div className="form-group" style={{ marginBottom: '3rem' }}>
                             <label style={labelStyle}>Message for the Couple</label>
                             <textarea 
                                 name="message" 
                                 rows="4" 
+                                maxLength="500"
                                 placeholder="Any dietary requirements or special messages?"
                                 className="custom-input"
                                 style={{ ...inputStyle, resize: 'none' }}
@@ -124,19 +129,23 @@ const RSVP = () => {
 
                         <div className="text-center">
                             <motion.button 
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
+                                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                                 type="submit" 
+                                disabled={isSubmitting}
                                 className="btn-primary" 
                                 style={{ 
-                                    padding: '16px 60px', 
-                                    fontSize: '1rem',
-                                    backgroundColor: 'var(--color-text-primary)',
+                                    padding: '18px 70px', 
+                                    fontSize: '1.1rem',
+                                    fontWeight: '600',
+                                    backgroundColor: isSubmitting ? '#ccc' : 'var(--color-text-primary)',
                                     color: 'var(--color-white)',
-                                    boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+                                    boxShadow: isSubmitting ? 'none' : '0 15px 30px rgba(0,0,0,0.15)',
+                                    letterSpacing: '2px',
+                                    cursor: isSubmitting ? 'not-allowed' : 'pointer'
                                 }}
                             >
-                                Send RSVP
+                                {isSubmitting ? 'Sending...' : 'Send RSVP'}
                             </motion.button>
                         </div>
                     </form>
@@ -159,6 +168,15 @@ const RSVP = () => {
                 }
                 .custom-input {
                     transition: all 0.3s ease !important;
+                    -webkit-appearance: none;
+                    appearance: none;
+                }
+                select.custom-input {
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B59E6D'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 1.5rem center;
+                    background-size: 1.2em;
+                    padding-right: 3.5rem;
                 }
                 @media (max-width: 650px) {
                     .form-grid {
@@ -168,6 +186,10 @@ const RSVP = () => {
                     .section-padding {
                         padding: 4rem 1rem !important;
                     }
+                    .btn-primary {
+                        width: 100% !important;
+                        padding: 18px 20px !important;
+                    }
                 }
             `}} />
         </section>
@@ -176,7 +198,7 @@ const RSVP = () => {
 
 const labelStyle = {
     fontFamily: 'var(--font-heading)',
-    fontSize: '0.75rem',
+    fontSize: '0.8rem',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     color: 'var(--color-text-primary)',
@@ -185,11 +207,11 @@ const labelStyle = {
 };
 
 const inputStyle = {
-    padding: '14px 20px',
+    padding: '16px 20px',
     borderRadius: '12px',
     border: '1px solid #EAEAEA',
     fontFamily: 'var(--font-body)',
-    fontSize: '0.95rem',
+    fontSize: '1rem',
     outline: 'none',
     backgroundColor: '#FBFBFB',
     color: 'var(--color-text-primary)'
