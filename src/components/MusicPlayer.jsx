@@ -27,20 +27,21 @@ const MusicPlayer = ({ isPlaying, togglePlay }) => {
     }, [isPlaying, hasStarted]);
 
     return (
-        <div style={{
+        <div className="music-player-container" style={{
             position: 'fixed',
-            top: '30px', /* Changed to top */
+            top: '30px',
             right: '30px',
-            zIndex: 1000, /* Increased z-index */
+            zIndex: 1000,
         }}>
             <audio ref={audioRef} loop src="/audio/bg-music.mp3" preload="auto" />
             <button
                 onClick={togglePlay}
+                className="music-toggle-btn"
                 style={{
-                    width: '60px', /* Increased size */
+                    width: '60px',
                     height: '60px',
                     borderRadius: '50%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)', /* Glassmorphism */
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     border: '1px solid var(--color-gold)',
                     color: 'var(--color-gold)',
@@ -49,7 +50,7 @@ const MusicPlayer = ({ isPlaying, togglePlay }) => {
                     justifyContent: 'center',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
                     padding: 0,
-                    fontSize: '1.4rem', /* Bigger icon */
+                    fontSize: '1.4rem',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease'
                 }}
@@ -57,6 +58,20 @@ const MusicPlayer = ({ isPlaying, togglePlay }) => {
             >
                 {isPlaying ? <FaPause /> : <FaMusic />}
             </button>
+
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (max-width: 768px) {
+                    .music-player-container {
+                        top: 20px !important;
+                        right: 20px !important;
+                    }
+                    .music-toggle-btn {
+                        width: 45px !important;
+                        height: 45px !important;
+                        font-size: 1.1rem !important;
+                    }
+                }
+            `}} />
         </div>
     );
 };

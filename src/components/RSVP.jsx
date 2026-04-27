@@ -95,8 +95,14 @@ const RSVP = () => {
                         <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
                                 <label style={labelStyle}>Attendance</label>
-                                <select name="attending" required className="custom-input" style={inputStyle}>
-                                    <option value="" disabled selected>Will you attend?</option>
+                                <select 
+                                    name="attending" 
+                                    required 
+                                    className="custom-input" 
+                                    style={inputStyle}
+                                    defaultValue=""
+                                >
+                                    <option value="" disabled>Will you attend?</option>
                                     <option value="yes">Yes, I'll be there</option>
                                     <option value="no">Sorry, I can't make it</option>
                                 </select>
