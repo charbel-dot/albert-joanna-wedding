@@ -30,7 +30,7 @@ const Hero = () => {
                 __html: `
                 @media (max-width: 768px) {
                     .hero-bg { 
-                        background-position: 80% 20% !important;
+                        background-position: 65% 20% !important;
                         transform: none !important; 
                         background-attachment: scroll !important; /* Fixed is broken on iOS */
                         height: 100% !important;
