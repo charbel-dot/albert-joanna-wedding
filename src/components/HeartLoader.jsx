@@ -13,27 +13,32 @@ const HeartLoader = () => {
                 left: 0,
                 width: '100vw',
                 height: '100vh',
-                background: 'radial-gradient(circle at center, #FDFBF7 0%, #EBE5DE 100%)',
+                backgroundColor: '#EBE5DE', // Slightly darker than modal's #F9F5F0
                 display: 'flex',
-                flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                zIndex: 9999,
+                zIndex: 9999, // Ensure it's on top of everything
             }}
         >
-            <div style={{ position: 'relative', width: '120px', height: '120px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                {/* Soft background pulse */}
+            <div style={{ position: 'relative' }}>
+                {/* Soft pulse glow behind the heart */}
                 <motion.div
                     style={{
                         position: 'absolute',
-                        width: '100%',
-                        height: '100%',
+                        top: '50%',
+                        left: '50%',
+                        x: '-50%',
+                        y: '-50%',
+                        width: '120px',
+                        height: '120px',
                         borderRadius: '50%',
-                        backgroundColor: 'rgba(181, 158, 109, 0.15)',
+                        backgroundColor: 'var(--color-gold)',
+                        opacity: 0.2,
+                        filter: 'blur(20px)'
                     }}
                     animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 0.2, 0.5]
+                        scale: [0.8, 1.5, 0.8],
+                        opacity: [0.2, 0.1, 0.2]
                     }}
                     transition={{
                         duration: 2,
@@ -45,15 +50,17 @@ const HeartLoader = () => {
                 <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    width="60px"
-                    height="60px"
+                    width="100px"
+                    height="100px"
                     style={{ position: 'relative', zIndex: 2 }}
                 >
                     <motion.path
                         d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                         fill="var(--color-gold)"
+                        initial={{ scale: 0.8, opacity: 0 }}
                         animate={{
-                            scale: [1, 1.1, 1],
+                            scale: [0.8, 1.2, 0.8],
+                            opacity: 1
                         }}
                         transition={{
                             duration: 1.5,
@@ -63,22 +70,6 @@ const HeartLoader = () => {
                     />
                 </motion.svg>
             </div>
-            
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '0.9rem',
-                    letterSpacing: '4px',
-                    color: 'var(--color-gold)',
-                    marginTop: '2rem',
-                    textTransform: 'uppercase'
-                }}
-            >
-                Loading Love
-            </motion.p>
         </motion.div>
     );
 };
