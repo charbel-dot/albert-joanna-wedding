@@ -53,7 +53,7 @@ const RSVP = () => {
                     }}></div>
 
                     <form 
-                        action="https://formsubmit.co/your-email@example.com" 
+                        action="https://formsubmit.co/Albert_nasseh@outlook.com" 
                         method="POST"
                         onSubmit={handleSubmit}
                     >
