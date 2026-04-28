@@ -12,7 +12,7 @@ const RSVP = () => {
     return (
         <section className="section-padding" id="rsvp" style={{ backgroundColor: 'var(--color-bg)' }}>
             <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
-                <motion.div 
+                <motion.div
                     className="text-center"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -52,8 +52,8 @@ const RSVP = () => {
                         background: 'linear-gradient(90deg, rgba(181, 158, 109, 0) 0%, rgba(181, 158, 109, 0.8) 50%, rgba(181, 158, 109, 0) 100%)'
                     }}></div>
 
-                    <form 
-                        action="https://formsubmit.co/Albert_nasseh@outlook.com" 
+                    <form
+                        action="https://formsubmit.co/Joannanehme330@gmail.com"
                         method="POST"
                         onSubmit={handleSubmit}
                     >
@@ -61,18 +61,18 @@ const RSVP = () => {
                         <input type="hidden" name="_subject" value="New Wedding RSVP!" />
                         <input type="hidden" name="_template" value="table" />
                         <input type="hidden" name="_captcha" value="true" />
-                        <input type="hidden" name="_cc" value="Joannanehme330@gmail.com" />
-                        
+                        <input type="hidden" name="_cc" value="Albert_nasseh@outlook.com" />
+
                         {/* Honeypot field for bot protection */}
                         <input type="text" name="_honey" style={{ display: 'none' }} />
-                        
+
                         <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
                                 <label style={labelStyle}>Full Name</label>
-                                <input 
-                                    type="text" 
-                                    name="name" 
-                                    required 
+                                <input
+                                    type="text"
+                                    name="name"
+                                    required
                                     minLength="2"
                                     maxLength="50"
                                     placeholder="Enter your name"
@@ -82,10 +82,10 @@ const RSVP = () => {
                             </div>
                             <div className="form-group">
                                 <label style={labelStyle}>Email Address</label>
-                                <input 
-                                    type="email" 
-                                    name="email" 
-                                    required 
+                                <input
+                                    type="email"
+                                    name="email"
+                                    required
                                     placeholder="Enter your email"
                                     className="custom-input"
                                     style={inputStyle}
@@ -96,10 +96,10 @@ const RSVP = () => {
                         <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
                                 <label style={labelStyle}>Attendance</label>
-                                <select 
-                                    name="attending" 
-                                    required 
-                                    className="custom-input" 
+                                <select
+                                    name="attending"
+                                    required
+                                    className="custom-input"
                                     style={inputStyle}
                                     defaultValue=""
                                 >
@@ -110,11 +110,11 @@ const RSVP = () => {
                             </div>
                             <div className="form-group">
                                 <label style={labelStyle}>Number of Guests</label>
-                                <input 
-                                    type="number" 
-                                    name="guests" 
-                                    min="0" 
-                                    max="10" 
+                                <input
+                                    type="number"
+                                    name="guests"
+                                    min="0"
+                                    max="10"
                                     placeholder="1"
                                     className="custom-input"
                                     style={inputStyle}
@@ -124,9 +124,9 @@ const RSVP = () => {
 
                         <div className="form-group" style={{ marginBottom: '3rem' }}>
                             <label style={labelStyle}>Message for the Couple</label>
-                            <textarea 
-                                name="message" 
-                                rows="4" 
+                            <textarea
+                                name="message"
+                                rows="4"
                                 maxLength="500"
                                 placeholder="Any dietary requirements or special messages?"
                                 className="custom-input"
@@ -135,14 +135,14 @@ const RSVP = () => {
                         </div>
 
                         <div className="text-center">
-                            <motion.button 
+                            <motion.button
                                 whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-                                type="submit" 
+                                type="submit"
                                 disabled={isSubmitting}
-                                className="btn-primary" 
-                                style={{ 
-                                    padding: '18px 70px', 
+                                className="btn-primary"
+                                style={{
+                                    padding: '18px 70px',
                                     fontSize: '1.1rem',
                                     fontWeight: '600',
                                     backgroundColor: isSubmitting ? '#ccc' : 'var(--color-text-primary)',
@@ -159,7 +159,8 @@ const RSVP = () => {
                 </motion.div>
             </div>
 
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 .form-group {
                     display: flex;
                     flex-direction: column;
