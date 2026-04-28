@@ -61,6 +61,7 @@ const RSVP = () => {
                         <input type="hidden" name="_subject" value="New Wedding RSVP!" />
                         <input type="hidden" name="_template" value="table" />
                         <input type="hidden" name="_captcha" value="true" />
+                        <input type="hidden" name="_cc" value="Joannanehme330@gmail.com" />
                         
                         {/* Honeypot field for bot protection */}
                         <input type="text" name="_honey" style={{ display: 'none' }} />
