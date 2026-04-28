@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChurch, FaGlassCheers, FaMapMarkerAlt, FaTimes } from 'react-icons/fa';
 
@@ -179,6 +179,33 @@ const EventSection = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [activeLocation, setActiveLocation] = useState(null);
 
+    const calculateTimeLeft = () => {
+        const weddingDate = new Date('2026-06-28T18:30:00');
+        const difference = weddingDate - new Date();
+        let timeLeft = {};
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        } else {
+            timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        }
+        return timeLeft;
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     const openMap = (loc) => {
         setActiveLocation(loc);
         setModalOpen(true);
@@ -205,6 +232,59 @@ const EventSection = () => {
                 >
                     <span className="script-font" style={{ color: 'var(--color-sage)' }}>The Big Day</span>
                     <h2>Wedding Event</h2>
+                </motion.div>
+
+                {/* Countdown Timer */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.8 }}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '1.5rem',
+                        marginBottom: '4rem',
+                        flexWrap: 'wrap'
+                    }}
+                >
+                    {Object.entries(timeLeft).map(([unit, value]) => (
+                        <div key={unit} style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            backgroundColor: 'var(--color-white)',
+                            border: '1px solid var(--color-gold-light)',
+                            borderRadius: '16px',
+                            padding: '1.5rem',
+                            minWidth: '100px',
+                            boxShadow: '0 10px 25px rgba(0,0,0,0.03)',
+                            transform: 'translateY(0)',
+                            transition: 'transform 0.3s ease'
+                        }}
+                        className="countdown-box"
+                        >
+                            <span style={{
+                                fontSize: '2.5rem',
+                                fontWeight: '600',
+                                color: 'var(--color-sage)',
+                                fontFamily: 'var(--font-heading)',
+                                lineHeight: '1.2'
+                            }}>
+                                {String(value).padStart(2, '0')}
+                            </span>
+                            <span style={{
+                                fontSize: '0.8rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '2px',
+                                color: 'var(--color-text-secondary)',
+                                marginTop: '0.5rem',
+                                fontWeight: '500'
+                            }}>
+                                {unit}
+                            </span>
+                        </div>
+                    ))}
                 </motion.div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -242,6 +322,11 @@ const EventSection = () => {
             {/* Mobile stack fix via CSS */}
             <style dangerouslySetInnerHTML={{
                 __html: `
+                .countdown-box:hover {
+                    transform: translateY(-5px) !important;
+                    border-color: var(--color-gold) !important;
+                    box-shadow: 0 15px 30px rgba(141, 163, 153, 0.15) !important;
+                }
                 @media (max-width: 768px) {
                     .event-container { flexDirection: column !important; }
                     /* Modal optimizations for mobile */
