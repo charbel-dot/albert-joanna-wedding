@@ -122,18 +122,6 @@ const RSVP = () => {
                             </div>
                         </div>
 
-                        <div className="form-group" style={{ marginBottom: '3rem' }}>
-                            <label style={labelStyle}>Message for the Couple</label>
-                            <textarea
-                                name="message"
-                                rows="4"
-                                maxLength="500"
-                                placeholder="Any dietary requirements or special messages?"
-                                className="custom-input"
-                                style={{ ...inputStyle, resize: 'none' }}
-                            ></textarea>
-                        </div>
-
                         <div className="text-center">
                             <motion.button
                                 whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
