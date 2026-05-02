@@ -20,10 +20,10 @@ const RSVP = () => {
                     transition={{ duration: 0.8 }}
                     style={{ marginBottom: '3rem' }}
                 >
-                    <span className="script-font" style={{ color: 'var(--color-gold)', display: 'block', marginBottom: '0.5rem' }}>Kindly Respond</span>
-                    <h2 style={{ marginBottom: '1rem' }}>RSVP</h2>
+                    <span className="script-font" style={{ color: 'var(--color-gold)', display: 'block', marginBottom: '0.5rem' }}>Reserve Your Seat</span>
+                    <h2 style={{ marginBottom: '1rem' }}>Dinner Reservations</h2>
                     <p style={{ color: 'var(--color-text-secondary)', maxWidth: '500px', margin: '0 auto' }}>
-                        Please let us know if you will be joining us on our special day. We look forward to celebrating with you!
+                        Please let us know if you will be joining us for dinner. We look forward to sharing this meal and celebrating with you!
                     </p>
                 </motion.div>
 
@@ -58,7 +58,7 @@ const RSVP = () => {
                         onSubmit={handleSubmit}
                     >
                         {/* FormSubmit Configuration */}
-                        <input type="hidden" name="_subject" value="New Wedding RSVP!" />
+                        <input type="hidden" name="_subject" value="New Dinner Reservation!" />
                         <input type="hidden" name="_template" value="table" />
                         <input type="hidden" name="_captcha" value="true" />
                         <input type="hidden" name="_cc" value="Albert_nasseh@outlook.com" />
@@ -95,7 +95,7 @@ const RSVP = () => {
 
                         <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2.5rem' }}>
                             <div className="form-group">
-                                <label style={labelStyle}>Attendance</label>
+                                <label style={labelStyle}>Dinner Attendance</label>
                                 <select
                                     name="attending"
                                     required
@@ -103,9 +103,9 @@ const RSVP = () => {
                                     style={inputStyle}
                                     defaultValue=""
                                 >
-                                    <option value="" disabled>Will you attend?</option>
-                                    <option value="yes">Yes, I'll be there</option>
-                                    <option value="no">Sorry, I can't make it</option>
+                                    <option value="" disabled>Will you join us for dinner?</option>
+                                    <option value="yes">Yes, I'll be there for dinner</option>
+                                    <option value="no">Sorry, I can't join for dinner</option>
                                 </select>
                             </div>
                             <div className="form-group">
@@ -140,7 +140,7 @@ const RSVP = () => {
                                     cursor: isSubmitting ? 'not-allowed' : 'pointer'
                                 }}
                             >
-                                {isSubmitting ? 'Sending...' : 'Send RSVP'}
+                                {isSubmitting ? 'Sending...' : 'Submit Reservation'}
                             </motion.button>
                         </div>
                     </form>
