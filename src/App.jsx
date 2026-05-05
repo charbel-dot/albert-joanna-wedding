@@ -1,5 +1,6 @@
 import React, { useState, Suspense, lazy, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import WelcomeModal from './components/WelcomeModal';
 import MusicPlayer from './components/MusicPlayer';
 import Hero from './components/Hero';
@@ -123,6 +124,8 @@ function App() {
             {entered && (
                 <MusicPlayer isPlaying={isPlaying} togglePlay={() => setIsPlaying(!isPlaying)} />
             )}
+
+            <Analytics />
         </>
     );
 }
