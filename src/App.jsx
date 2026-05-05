@@ -1,5 +1,5 @@
 import React, { useState, Suspense, lazy, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
 import WelcomeModal from './components/WelcomeModal';
 import MusicPlayer from './components/MusicPlayer';
@@ -14,18 +14,6 @@ const RSVP = lazy(() => import('./components/RSVP'));
 const Gifts = lazy(() => import('./components/Gifts'));
 const Footer = lazy(() => import('./components/Footer'));
 
-const galleryImages = [
-    '/images/A&J (2).webp',
-    '/images/A&J (5).webp',
-    '/images/A&J (10).webp',
-    '/images/A&J (79).webp',
-    '/images/A&J (104).webp',
-    '/images/A&J (120).webp',
-    '/images/A&J (78).webp',
-    '/images/A&J (107).webp',
-    '/images/A&J (113).webp'
-];
-
 function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [entered, setEntered] = useState(false);
@@ -34,21 +22,10 @@ function App() {
     useEffect(() => {
         const handleLoad = async () => {
             try {
-                // 1. Minimum wait time to prevent flashing (1.8s for a snappier feel)
-                const minTimePromise = new Promise(resolve => setTimeout(resolve, 1800));
+                // Minimum display time so the heart loader doesn't flash
+                const minTimePromise = new Promise(resolve => setTimeout(resolve, 1600));
 
-                // 2. Wait for all critical images
-                const imagePromises = galleryImages.map((src) => {
-                    return new Promise((resolve) => {
-                        const img = new Image();
-                        img.src = src;
-                        img.onload = resolve;
-                        img.onerror = resolve; // Continue even if error
-                    });
-                });
-                const imagesLoadedPromise = Promise.all(imagePromises);
-
-                // 3. Wait for the window to be fully loaded
+                // Wait for the window to be fully loaded (HTML + critical resources)
                 const windowLoadPromise = new Promise((resolve) => {
                     if (document.readyState === 'complete') {
                         resolve();
@@ -57,18 +34,12 @@ function App() {
                     }
                 });
 
-                // 4. Wait for fonts to be ready
+                // Wait for fonts to be ready (prevents FOUT)
                 const fontLoadPromise = document.fonts.ready;
 
-                // Wait for ALL conditions to be met
-                await Promise.all([
-                    minTimePromise,
-                    imagesLoadedPromise,
-                    windowLoadPromise,
-                    fontLoadPromise
-                ]);
+                await Promise.all([minTimePromise, windowLoadPromise, fontLoadPromise]);
             } catch (error) {
-                console.error("Loading error:", error);
+                console.error('Loading error:', error);
             } finally {
                 setIsLoading(false);
             }
@@ -76,6 +47,7 @@ function App() {
 
         handleLoad();
     }, []);
+
 
     const handleEnter = (withMusic) => {
         setEntered(true);

@@ -66,15 +66,16 @@ const Footer = () => {
                 </motion.span>
 
                 <motion.div
-                    animate={{
+                    whileInView={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 5, -5, 0]
                     }}
+                    viewport={{ once: false, amount: 0.5 }}
                     transition={{
                         duration: 2,
                         repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
+                        repeatType: 'reverse',
+                        ease: 'easeInOut'
                     }}
                 >
                     <FaInstagram style={{ fontSize: '3.5rem', color: 'var(--color-gold)' }} />

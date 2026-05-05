@@ -85,32 +85,23 @@ const Gallery = () => {
                             <div
                                 style={{
                                     backgroundColor: '#ffffff',
-                                    padding: '12px 12px 75px 12px', // Polaroid-style frame
+                                    padding: '12px 12px 75px 12px',
                                     boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                                     width: '100%',
                                     aspectRatio: '3/4',
                                     position: 'relative',
-
-                                    // Performance attributes
-                                    transform: 'translate3d(0,0,0)',
-                                    willChange: 'transform',
-                                    backfaceVisibility: 'hidden',
-                                    WebkitBackfaceVisibility: 'hidden'
                                 }}
                             >
                                 <img
                                     src={img}
-                                    alt={`Gallery image ${index + 1}`}
-                                    loading="eager"
+                                    alt={`Albert and Joanna wedding photo ${index + 1}`}
+                                    loading={index < 2 ? 'eager' : 'lazy'}
                                     decoding="async"
                                     style={{
                                         width: '100%',
                                         height: '100%',
                                         objectFit: 'cover',
                                         display: 'block',
-                                        filter: 'grayscale(0%)', // Ensure images are crisp
-                                        backfaceVisibility: 'hidden',
-                                        WebkitBackfaceVisibility: 'hidden'
                                     }}
                                 />
                             </div>
