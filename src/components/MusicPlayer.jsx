@@ -1,48 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMusic, FaPause } from 'react-icons/fa';
 
-const MusicPlayer = ({ isPlaying, togglePlay }) => {
-    const audioRef = useRef(null);
+// audioRef is passed from App.jsx — the audio element is already mounted
+// and buffering before this component even appears, so playback is instant.
+const MusicPlayer = ({ audioRef, isPlaying, togglePlay }) => {
     const [hasStarted, setHasStarted] = useState(false);
-    // Only mount the audio element once the user has opted into music.
-    // This prevents the browser from downloading the 2.2MB MP3 on page load.
-    const [audioReady, setAudioReady] = useState(false);
-
-    // Trigger audio element mount when user first requests music
-    useEffect(() => {
-        if (isPlaying && !audioReady) {
-            setAudioReady(true);
-        }
-    }, [isPlaying, audioReady]);
 
     useEffect(() => {
-        if (!audioRef.current) return;
+        const audio = audioRef?.current;
+        if (!audio) return;
 
         if (isPlaying) {
+            // Seek to 8s on the very first play to skip the intro silence
             if (!hasStarted) {
-                audioRef.current.currentTime = 8;
+                audio.currentTime = 8;
                 setHasStarted(true);
             }
-            const playPromise = audioRef.current.play();
+            // audio.load() was already called in App.jsx — just play()
+            const playPromise = audio.play();
             if (playPromise !== undefined) {
-                playPromise.catch(e => console.log('Autoplay prevented', e));
+                playPromise.catch(e => console.log('Playback prevented:', e));
             }
         } else {
-            audioRef.current.pause();
+            audio.pause();
         }
-    }, [isPlaying, audioReady, hasStarted]);
+    }, [isPlaying, audioRef, hasStarted]);
 
     return (
         <div className="music-player-container">
-            {/* Only mount <audio> if user chose music — saves 2.2MB for quiet users */}
-            {audioReady && (
-                <audio
-                    ref={audioRef}
-                    loop
-                    src="/audio/bg-music.mp3"
-                    preload="none"
-                />
-            )}
             <button
                 onClick={togglePlay}
                 className="music-toggle-btn"
