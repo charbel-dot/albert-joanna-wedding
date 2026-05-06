@@ -13,6 +13,7 @@ const Gifts = () => {
     return (
         <section className="section-padding text-center" id="gifts">
             <div style={{ 
+                width: '95%',
                 maxWidth: '800px', 
                 margin: '0 auto', 
                 border: '1px solid var(--color-gold-light)', 

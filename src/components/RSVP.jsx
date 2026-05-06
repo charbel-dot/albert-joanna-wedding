@@ -11,7 +11,7 @@ const RSVP = () => {
 
     return (
         <section className="section-padding" id="rsvp" style={{ backgroundColor: 'var(--color-bg)' }}>
-            <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
+            <div style={{ width: '95%', maxWidth: '800px', margin: '0 auto' }}>
                 <motion.div
                     className="text-center"
                     initial={{ opacity: 0, y: 20 }}
@@ -22,12 +22,13 @@ const RSVP = () => {
                 >
                     <span className="script-font" style={{ color: 'var(--color-gold)', display: 'block', marginBottom: '0.5rem' }}>Reserve Your Seat</span>
                     <h2 style={{ marginBottom: '1rem' }}>Dinner Reservations</h2>
-                    <p style={{ color: 'var(--color-text-secondary)', maxWidth: '500px', margin: '0 auto' }}>
+                    <p style={{ color: 'var(--color-text-secondary)', maxWidth: '500px', margin: '0 auto', fontSize: '0.95rem' }}>
                         Please let us know if you will be joining us for dinner. We look forward to sharing this meal and celebrating with you!
                     </p>
                 </motion.div>
 
                 <motion.div
+                    className="rsvp-card"
                     initial={{ opacity: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -130,8 +131,8 @@ const RSVP = () => {
                                 disabled={isSubmitting}
                                 className="btn-primary"
                                 style={{
-                                    padding: '18px 70px',
-                                    fontSize: '1.1rem',
+                                    padding: '16px 50px',
+                                    fontSize: '0.9rem',
                                     fontWeight: '600',
                                     backgroundColor: isSubmitting ? '#ccc' : 'var(--color-text-primary)',
                                     color: 'var(--color-white)',
@@ -175,16 +176,20 @@ const RSVP = () => {
                     padding-right: 3.5rem;
                 }
                 @media (max-width: 650px) {
+                    .rsvp-card {
+                        padding: 2rem 1.25rem !important;
+                    }
                     .form-grid {
                         grid-template-columns: 1fr !important;
                         gap: 1.5rem !important;
+                        margin-bottom: 1.5rem !important;
                     }
                     .section-padding {
-                        padding: 4rem 1rem !important;
+                        padding: 3rem 0 !important;
                     }
                     .btn-primary {
                         width: 100% !important;
-                        padding: 18px 20px !important;
+                        padding: 16px 20px !important;
                     }
                 }
             `}} />
@@ -194,20 +199,20 @@ const RSVP = () => {
 
 const labelStyle = {
     fontFamily: 'var(--font-heading)',
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
     textTransform: 'uppercase',
-    letterSpacing: '2px',
+    letterSpacing: '1.5px',
     color: 'var(--color-text-primary)',
     fontWeight: '600',
     marginLeft: '4px'
 };
 
 const inputStyle = {
-    padding: '16px 20px',
+    padding: '14px 18px',
     borderRadius: '12px',
     border: '1px solid #EAEAEA',
     fontFamily: 'var(--font-body)',
-    fontSize: '1rem',
+    fontSize: '0.9rem',
     outline: 'none',
     backgroundColor: '#FBFBFB',
     color: 'var(--color-text-primary)'
