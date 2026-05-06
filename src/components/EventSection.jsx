@@ -236,67 +236,76 @@ const EventSection = () => {
 
                 {/* Countdown Timer */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 1 }}
+                    transition={{ delay: 0.2, duration: 1.2 }}
                     className="countdown-container"
                     style={{
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        gap: 'clamp(0.5rem, 3vw, 3rem)',
-                        marginBottom: '5rem',
-                        padding: '3rem 2rem',
-                        backgroundColor: 'var(--color-white)',
+                        gap: 'clamp(0.4rem, 4vw, 3rem)',
+                        marginBottom: '6rem',
+                        padding: 'clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem)',
+                        background: 'rgba(255, 255, 255, 0.85)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
                         borderRadius: '100px',
-                        boxShadow: '0 20px 40px rgba(141, 163, 153, 0.1)',
-                        border: '1px solid var(--color-gold-light)',
-                        maxWidth: '800px',
-                        margin: '0 auto 5rem auto',
+                        boxShadow: '0 30px 60px -12px rgba(141, 163, 153, 0.2), inset 0 0 20px rgba(255,255,255,0.5)',
+                        border: '1px solid rgba(181, 158, 109, 0.3)',
+                        maxWidth: '900px',
+                        margin: '0 auto 6rem auto',
                         position: 'relative',
-                        transition: 'all 0.4s ease'
+                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                     }}
                 >
+                    {/* Decorative accent dots */}
+                    <div style={{ position: 'absolute', top: '15px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px' }}>
+                        {[1, 2, 3].map(i => <div key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--color-gold-light)', opacity: 0.6 }} />)}
+                    </div>
+
                     {Object.entries(timeLeft).map(([unit, value], index, array) => (
                         <React.Fragment key={unit}>
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 'clamp(50px, 10vw, 80px)' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 'clamp(65px, 15vw, 100px)' }}>
                                 <AnimatePresence mode="wait">
                                     <motion.span 
                                         key={value}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.3 }}
+                                        initial={{ opacity: 0, filter: 'blur(4px)', y: 15 }}
+                                        animate={{ opacity: 1, filter: 'blur(0)', y: 0 }}
+                                        exit={{ opacity: 0, filter: 'blur(4px)', y: -15 }}
+                                        transition={{ duration: 0.4, ease: "easeOut" }}
                                         style={{
-                                            fontSize: 'clamp(1.5rem, 5vw, 3.5rem)',
+                                            fontSize: 'clamp(2.4rem, 10vw, 4.5rem)',
                                             fontWeight: '600',
                                             color: 'var(--color-sage)',
                                             fontFamily: 'var(--font-heading)',
-                                            lineHeight: '1'
+                                            lineHeight: '1',
+                                            textShadow: '0 2px 10px rgba(141, 163, 153, 0.1)'
                                         }}
                                     >
                                         {String(value).padStart(2, '0')}
                                     </motion.span>
                                 </AnimatePresence>
-                                <span style={{
-                                    fontSize: 'clamp(0.5rem, 1.5vw, 0.75rem)',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '2px',
-                                    color: 'var(--color-text-secondary)',
-                                    marginTop: '0.8rem',
-                                    fontWeight: '500'
+                                <span className="script-font" style={{
+                                    fontSize: 'clamp(1rem, 3vw, 1.4rem)',
+                                    color: 'var(--color-gold)',
+                                    marginTop: '0.4rem',
+                                    fontWeight: '400',
+                                    opacity: 0.9,
+                                    textTransform: 'none'
                                 }}>
                                     {unit}
                                 </span>
                             </div>
                             {index < array.length - 1 && (
                                 <div style={{
-                                    fontSize: 'clamp(1.2rem, 3vw, 2.5rem)',
+                                    fontSize: 'clamp(1.5rem, 5vw, 3rem)',
                                     color: 'var(--color-gold-light)',
                                     fontFamily: 'var(--font-heading)',
                                     marginTop: '-1.5rem',
-                                    opacity: 0.6
+                                    opacity: 0.4,
+                                    userSelect: 'none'
                                 }}>
                                     :
                                 </div>
@@ -341,16 +350,17 @@ const EventSection = () => {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 .countdown-container:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 30px 60px rgba(141, 163, 153, 0.15);
+                    transform: translateY(-8px) scale(1.01);
+                    box-shadow: 0 40px 80px rgba(141, 163, 153, 0.25);
                     border-color: var(--color-gold) !important;
+                    background: rgba(255, 255, 255, 0.95) !important;
                 }
                 @media (max-width: 768px) {
                     .countdown-container {
-                        padding: 2rem 1rem !important;
-                        border-radius: 30px !important;
-                        margin-bottom: 3rem !important;
-                        gap: 0.5rem !important;
+                        padding: 1.5rem 0.5rem !important;
+                        border-radius: 40px !important;
+                        margin-bottom: 4rem !important;
+                        gap: 0.2rem !important;
                     }
                     .event-container { flexDirection: column !important; }
                     /* Modal optimizations for mobile */
