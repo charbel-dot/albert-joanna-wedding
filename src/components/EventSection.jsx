@@ -236,54 +236,72 @@ const EventSection = () => {
 
                 {/* Countdown Timer */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.8 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                    className="countdown-container"
                     style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        gap: '1.5rem',
-                        marginBottom: '4rem',
-                        flexWrap: 'wrap'
+                        alignItems: 'center',
+                        gap: 'clamp(0.5rem, 3vw, 3rem)',
+                        marginBottom: '5rem',
+                        padding: '3rem 2rem',
+                        backgroundColor: 'var(--color-white)',
+                        borderRadius: '100px',
+                        boxShadow: '0 20px 40px rgba(141, 163, 153, 0.1)',
+                        border: '1px solid var(--color-gold-light)',
+                        maxWidth: '800px',
+                        margin: '0 auto 5rem auto',
+                        position: 'relative',
+                        transition: 'all 0.4s ease'
                     }}
                 >
-                    {Object.entries(timeLeft).map(([unit, value]) => (
-                        <div key={unit} style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            backgroundColor: 'var(--color-white)',
-                            border: '1px solid var(--color-gold-light)',
-                            borderRadius: '16px',
-                            padding: '1.5rem',
-                            minWidth: '100px',
-                            boxShadow: '0 10px 25px rgba(0,0,0,0.03)',
-                            transform: 'translateY(0)',
-                            transition: 'transform 0.3s ease'
-                        }}
-                        className="countdown-box"
-                        >
-                            <span style={{
-                                fontSize: '2.5rem',
-                                fontWeight: '600',
-                                color: 'var(--color-sage)',
-                                fontFamily: 'var(--font-heading)',
-                                lineHeight: '1.2'
-                            }}>
-                                {String(value).padStart(2, '0')}
-                            </span>
-                            <span style={{
-                                fontSize: '0.8rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '2px',
-                                color: 'var(--color-text-secondary)',
-                                marginTop: '0.5rem',
-                                fontWeight: '500'
-                            }}>
-                                {unit}
-                            </span>
-                        </div>
+                    {Object.entries(timeLeft).map(([unit, value], index, array) => (
+                        <React.Fragment key={unit}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 'clamp(50px, 10vw, 80px)' }}>
+                                <AnimatePresence mode="wait">
+                                    <motion.span 
+                                        key={value}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.3 }}
+                                        style={{
+                                            fontSize: 'clamp(1.5rem, 5vw, 3.5rem)',
+                                            fontWeight: '600',
+                                            color: 'var(--color-sage)',
+                                            fontFamily: 'var(--font-heading)',
+                                            lineHeight: '1'
+                                        }}
+                                    >
+                                        {String(value).padStart(2, '0')}
+                                    </motion.span>
+                                </AnimatePresence>
+                                <span style={{
+                                    fontSize: 'clamp(0.5rem, 1.5vw, 0.75rem)',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '2px',
+                                    color: 'var(--color-text-secondary)',
+                                    marginTop: '0.8rem',
+                                    fontWeight: '500'
+                                }}>
+                                    {unit}
+                                </span>
+                            </div>
+                            {index < array.length - 1 && (
+                                <div style={{
+                                    fontSize: 'clamp(1.2rem, 3vw, 2.5rem)',
+                                    color: 'var(--color-gold-light)',
+                                    fontFamily: 'var(--font-heading)',
+                                    marginTop: '-1.5rem',
+                                    opacity: 0.6
+                                }}>
+                                    :
+                                </div>
+                            )}
+                        </React.Fragment>
                     ))}
                 </motion.div>
 
@@ -322,12 +340,18 @@ const EventSection = () => {
             {/* Mobile stack fix via CSS */}
             <style dangerouslySetInnerHTML={{
                 __html: `
-                .countdown-box:hover {
-                    transform: translateY(-5px) !important;
+                .countdown-container:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 30px 60px rgba(141, 163, 153, 0.15);
                     border-color: var(--color-gold) !important;
-                    box-shadow: 0 15px 30px rgba(141, 163, 153, 0.15) !important;
                 }
                 @media (max-width: 768px) {
+                    .countdown-container {
+                        padding: 2rem 1rem !important;
+                        border-radius: 30px !important;
+                        margin-bottom: 3rem !important;
+                        gap: 0.5rem !important;
+                    }
                     .event-container { flexDirection: column !important; }
                     /* Modal optimizations for mobile */
                     .map-modal-overlay { 

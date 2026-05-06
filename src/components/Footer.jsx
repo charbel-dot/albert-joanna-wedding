@@ -84,7 +84,7 @@ const Footer = () => {
 
             {/* Developer Credit */}
             <p style={{ fontSize: '1rem', color: '#AAA', marginTop: '4rem', fontWeight: 300 }}>
-                Developed with Love ❤️ by <a href="https://wa.me/+96171662507" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-gold)', textDecoration: 'none', fontWeight: 500 }}>Charbel</a>
+                Developed with Love ❤️ by <a href="https://instagram.com/charbel.nasseh" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-gold)', textDecoration: 'none', fontWeight: 500 }}>Charbel</a>
             </p>
         </footer>
     );
