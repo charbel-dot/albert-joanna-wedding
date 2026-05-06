@@ -251,9 +251,9 @@ const EventSection = () => {
                         background: 'rgba(255, 255, 255, 0.85)',
                         backdropFilter: 'blur(12px)',
                         WebkitBackdropFilter: 'blur(12px)',
-                        borderRadius: '100px',
-                        boxShadow: '0 30px 60px -12px rgba(141, 163, 153, 0.2), inset 0 0 20px rgba(255,255,255,0.5)',
-                        border: '1px solid rgba(181, 158, 109, 0.3)',
+                        borderRadius: '24px',
+                        boxShadow: '0 20px 50px rgba(141, 163, 153, 0.15), inset 0 0 20px rgba(255,255,255,0.5)',
+                        border: '1px solid var(--color-gold-light)',
                         maxWidth: '900px',
                         margin: '0 auto 6rem auto',
                         position: 'relative',
@@ -358,7 +358,7 @@ const EventSection = () => {
                 @media (max-width: 768px) {
                     .countdown-container {
                         padding: 1.5rem 0.5rem !important;
-                        border-radius: 40px !important;
+                        border-radius: 24px !important;
                         margin-bottom: 4rem !important;
                         gap: 0.2rem !important;
                     }
