@@ -21,7 +21,7 @@ const RSVP = () => {
                     style={{ marginBottom: '3rem' }}
                 >
                     <span className="script-font" style={{ color: 'var(--color-gold)', display: 'block', marginBottom: '0.5rem' }}>Reserve Your Seat</span>
-                    <h2 style={{ marginBottom: '1rem' }}>Dinner Reservations</h2>
+                    <h2 style={{ marginBottom: '1rem' }}>Dinner Reservation</h2>
                     <p style={{ color: 'var(--color-text-secondary)', maxWidth: '500px', margin: '0 auto', fontSize: '0.95rem' }}>
                         Please let us know if you will be joining us for dinner. We look forward to sharing this meal and celebrating with you!
                     </p>
