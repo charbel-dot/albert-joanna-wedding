@@ -7,15 +7,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const images = [
-    '/images/A&J (2).webp',
-    '/images/A&J (5).webp',
-    '/images/A&J (10).webp',
+    '/images/A&J (35).webp',
+    '/images/A&J (40).webp',
+    '/images/A&J (68).webp',
     '/images/A&J (79).webp',
-    '/images/A&J (104).webp',
-    '/images/A&J (120).webp',
-    '/images/A&J (78).webp',
-    '/images/A&J (107).webp',
-    '/images/A&J (113).webp'
+    '/images/A&J (89).webp',
+    '/images/A&J (120).webp'
 ];
 
 const Gallery = () => {
