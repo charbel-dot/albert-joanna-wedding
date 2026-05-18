@@ -34,7 +34,7 @@ const RSVP = () => {
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSfh2U1540CY2JfHk-e98Dt6JFNgG7IHvJ7NcjXxA-tD3qHfnA/viewform?embedded=true"
                         width="100%"
-                        height="850"
+                        height="1000"
                         frameBorder="0"
                         marginHeight="0"
                         marginWidth="0"
